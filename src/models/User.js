@@ -1,5 +1,3 @@
-const express = require("express");
-
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -24,17 +22,22 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   Adress: {
     type: String,
     default: null,
   },
   role: {
-    role: ["manage", "client", "livreur"],
-    // default: "client",
+    type: String,
+    enum: ["manage", "client", "livreur"],
+    default: "client",
   },
   CreatedAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 

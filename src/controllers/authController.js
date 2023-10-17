@@ -34,9 +34,7 @@ class authController {
       if (!user) {
         return res.json({ message: "No user found with this email." });
       }
-
       const passwordMatch = await bcryptjs.compare(password, user.password);
-
       if (passwordMatch) {
         const userRole = user.role;
         res.json({

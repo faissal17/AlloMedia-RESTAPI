@@ -27,7 +27,7 @@ class authController {
     }
   };
   static login = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
     try {
       const user = await User.findOne({ email });
 
@@ -38,8 +38,9 @@ class authController {
       const passwordMatch = await bcryptjs.compare(password, user.password);
 
       if (passwordMatch) {
+        const userRole = user.role;
         res.json({
-          message: "You have been logged in Your role is ",
+          message: "You have been logged in, Your role is " + userRole,
         });
         return res.json({ message: "Login successful" });
       } else {

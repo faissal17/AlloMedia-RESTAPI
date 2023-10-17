@@ -5,9 +5,8 @@ const bcryptjs = require("bcryptjs");
 
 class authController {
   static register = async (req, res) => {
-    const { name, email, password } = req.body;
-    console.log(req.body);
-    if (!name || !email || !password) {
+    const { name, email, password, role } = req.body;
+    if (!name || !email || !password || !role) {
       return res.json({ message: "All fields are required" });
     }
     try {
@@ -19,6 +18,7 @@ class authController {
       const newUser = await User.create({
         name,
         email,
+        role,
         password: hashedPassword,
       });
       res.json({ message: "user created" });
@@ -27,7 +27,7 @@ class authController {
     }
   };
   static login = async (req, res) => {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
     try {
       const user = await User.findOne({ email });
 

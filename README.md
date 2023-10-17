@@ -14,13 +14,19 @@ before start with AlloMedia you need some requirement
 
 1. To get a local copy up and running, follow these simple steps.
 
-`git clone https://github.com/faissal17/AlloMedia-RESTAPI.git`
+```bash
+git clone https://github.com/faissal17/AlloMedia-RESTAPI.git
+```
 
 2. navigate the project
 
-`cd AlloMedia-RESTAPI`
+```bash
+cd AlloMedia-RESTAPI
+```
 
 3.  Install dependencies using npm
 
-`npm install`
+```bash
+npm install
+```
 

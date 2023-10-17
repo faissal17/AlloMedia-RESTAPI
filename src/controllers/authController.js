@@ -1,6 +1,7 @@
 const express = require("express");
 const hashPassword = require("../helpers/hashPassword");
 const User = require("../models/User");
+const bcryptjs = require("bcryptjs");
 
 class authController {
   static register = async (req, res) => {
@@ -27,6 +28,27 @@ class authController {
   };
   static login = async (req, res) => {
     const { email, password } = req.body;
+    try {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return res.json({ message: "No user found with this email." });
+      }
+
+      const passwordMatch = await bcryptjs.compare(password, user.password);
+
+      if (passwordMatch) {
+        res.json({
+          message: "You have been logged in Your role is ",
+        });
+        return res.json({ message: "Login successful" });
+      } else {
+        return res.status(401).json({ message: "Incorrect password." });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "server error" });
+    }
   };
 }
 

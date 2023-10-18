@@ -1,31 +1,40 @@
-const express = require("express");
 const hashPassword = require("../helpers/hashPassword");
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 class authController {
   static register = async (req, res) => {
     const { name, email, password, role } = req.body;
     if (!name || !email || !password || !role) {
-      return res.json({ message: "All fields are required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
     try {
       const checkUserEmail = await User.findOne({ where: { email } });
       if (checkUserEmail) {
-        return res.json({ message: "this email already exists" });
+        return res.status(400).json({ message: "This email already exists" });
       }
       const hashedPassword = await hashPassword(password);
-      const newUser = await User.create({
+      const user = await User.create({
         name,
         email,
         role,
         password: hashedPassword,
       });
-      res.json({ message: "user created" });
+      const token = jwt.sign(
+        { userRole: user.role, email: user.email, name: user.name },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: 600,
+        }
+      );
+      res.status(201).json({ message: "User created", token });
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
     }
   };
+
   static login = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -36,9 +45,8 @@ class authController {
       }
       const passwordMatch = await bcryptjs.compare(password, user.password);
       if (passwordMatch) {
-        const userRole = user.role;
         res.json({
-          message: "You have been logged in, Your role is " + userRole,
+          message: "hello " + user.name + " Your role is " + user.role,
         });
         return res.json({ message: "Login successful" });
       } else {

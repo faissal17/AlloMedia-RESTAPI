@@ -30,3 +30,21 @@ cd AlloMedia-RESTAPI
 npm install
 ```
 
+# Configration
+
+You may need to configure some environment variables.
+
+1.Extract the .env file from the .env.example file
+
+```bash
+cp .env.example .env
+```
+
+i already mentioned in env.example that you will need to add a secret key you can write whatever you want but in case youb wanted more seccure you can run the following command in oyur terminal
+
+```bash
+node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
+
+```
+
+run the following command and get generated secret key

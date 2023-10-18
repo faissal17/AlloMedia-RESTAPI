@@ -57,6 +57,10 @@ class authController {
       return res.status(500).json({ message: "server error" });
     }
   };
+  static logout = async (req, res) => {
+    res.clearCookie("token");
+    res.status(201).json({ message: "you are logged out" });
+  };
 }
 
 module.exports = authController;

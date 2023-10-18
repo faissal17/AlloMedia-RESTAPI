@@ -2,7 +2,6 @@ const hashPassword = require("../helpers/hashPassword");
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 class authController {
   static register = async (req, res) => {
     const { name, email, password, role } = req.body;

@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  passwordResetToken: {
+    type: String,
+    default: null,
+  },
   role: {
     type: String,
     enum: ["manage", "client", "livreur"],

@@ -1,6 +1,7 @@
 const express = require("express");
 const authRouter = require("./src/routes/auth");
 const dotenv = require("dotenv");
+const mongoose = require("./src/database/connection");
 const bodyParser = require("body-parser");
 const forgetPassRouter = require("./src/routes/forgetPassword");
 

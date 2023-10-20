@@ -15,7 +15,10 @@ class ForgetPasswordController {
         res.status(403).json({ message: "No user found with this email." });
       } else {
         sendEmail(email);
-        res.status(200).json({ message: "check you email" });
+        res.status(200).json({
+          message:
+            "Please check your email you will find a link to reset your password",
+        });
       }
     } catch (error) {
       console.log(error.message);

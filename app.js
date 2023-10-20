@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const mongoose = require("./src/database/connection");
 const bodyParser = require("body-parser");
 const forgetPassRouter = require("./src/routes/forgetPassword");
+const resetPassword = require("./src/routes/ResetPassword");
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRouter);
 app.use("/api/auth", forgetPassRouter);
+app.use("/api/auth", resetPassword);
 
 app.get("/", (req, res) => {
   res.send("hey");

@@ -1,7 +1,9 @@
 const authController = require("../src/controllers/authController");
 const User = require("../src/models/User");
+const bcryptjs = require("bcryptjs");
 
 jest.mock("../src/models/User");
+jest.mock("bcryptjs");
 
 const res = {
   status: jest.fn().mockReturnThis(),
@@ -42,11 +44,30 @@ it("should return 400 if No user found with this email.", async () => {
   const req = {
     body: {
       email: "Cena@gmail.com",
-      password: "somepassword",
+      password: "JhonCena",
     },
   };
 
-  const user = await User.findOne({ email: req.body.email });
+  await User.findOne({ email: req.body.email });
+
+  await authController.login(req, res);
+  expect(res.status).toHaveBeenCalledWith(400);
+  expect(res.json).toHaveBeenCalledWith({
+    status: "error",
+    message: "No user found with this email.",
+  });
+});
+
+it("should return 400 if password is inccorect", async () => {
+  const req = {
+    body: {
+      email: "kayle@gmail.com",
+      password: "JhonCena",
+    },
+  };
+  await User.findOne({ email: req.body.email, password: req.body.password });
+
+  await bcryptjs.compare(req.body.password, User.password);
 
   await authController.login(req, res);
   expect(res.status).toHaveBeenCalledWith(400);

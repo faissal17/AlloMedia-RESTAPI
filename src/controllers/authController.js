@@ -6,7 +6,9 @@ class authController {
   static register = async (req, res) => {
     const { name, email, password, role } = req.body;
     if (!name || !email || !password || !role) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res
+        .status(400)
+        .json({ status: "error", message: "All fields are required" });
     }
     try {
       const checkUserEmail = await User.findOne({ where: { email } });
@@ -55,9 +57,14 @@ class authController {
         res.json({
           message: "hello " + user.name + " Your role is " + user.role,
         });
-        return res.json({ message: "Login successful" });
+        return resstatus(200).json({
+          status: "succes",
+          message: "Login successful",
+        });
       } else {
-        return res.status(401).json({ message: "Incorrect password." });
+        return res
+          .status(400)
+          .json({ status: "error", message: "Incorrect password." });
       }
     } catch (error) {
       console.error(error);

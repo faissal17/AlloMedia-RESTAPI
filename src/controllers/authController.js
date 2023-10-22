@@ -36,6 +36,12 @@ class authController {
 
   static login = async (req, res) => {
     const { email, password } = req.body;
+    if (!email) {
+      return res.status(400).json({
+        status: "error",
+        message: 'email is not allowed to be empty',
+      });
+    }
     try {
       const user = await User.findOne({ email });
 

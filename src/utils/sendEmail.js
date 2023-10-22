@@ -21,7 +21,7 @@ const sendEmail = async (email) => {
       from: "AlloMedia@gmail.com",
       to: email,
       subject: "Reset Password",
-      html: `<h1>Click this link to reset your password</h1><a href="http://localhost:3000/api/auth/resetpassword/:${token}">Reset Password Link</a>`,
+      html: `<h1>Click this link to reset your password</h1><a href="http://localhost:3000/api/auth/resetpassword/${token}">Reset Password Link</a>`,
     });
     console.log("email send successufully");
   } catch (error) {

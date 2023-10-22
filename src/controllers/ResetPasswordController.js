@@ -1,4 +1,3 @@
-const express = require("express");
 const dotenv = require("dotenv");
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
@@ -9,6 +8,7 @@ dotenv.config();
 class ResetPassworController {
   static resetPassword = async (req, res) => {
     const token = req.params.token;
+    console.log(token);
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     if (!decodedToken) {
       return res.json({ error: "oh hell no" });

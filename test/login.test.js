@@ -26,7 +26,7 @@ it("should return status 400 if email is empty", async () => {
 it("should return status 400 if password is empty ", async () => {
   const req = {
     body: {
-      email: "faisal@gmail.com",
+      email: "faissal@gmail.com",
       password: "",
     },
   };
@@ -35,5 +35,23 @@ it("should return status 400 if password is empty ", async () => {
   expect(res.json).toHaveBeenCalledWith({
     status: "error",
     message: "email or password are not allowed to be empty",
+  });
+});
+
+it("should return 400 if No user found with this email.", async () => {
+  const req = {
+    body: {
+      email: "Cena@gmail.com",
+      password: "somepassword",
+    },
+  };
+
+  const user = await User.findOne({ email: req.body.email });
+
+  await authController.login(req, res);
+  expect(res.status).toHaveBeenCalledWith(400);
+  expect(res.json).toHaveBeenCalledWith({
+    status: "error",
+    message: "No user found with this email.",
   });
 });

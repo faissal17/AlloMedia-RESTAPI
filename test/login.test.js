@@ -8,7 +8,7 @@ const res = {
   json: jest.fn(),
 };
 
-it("should return status 400 if email is not allowed to be empty", async () => {
+it("should return status 400 if email is empty", async () => {
   const req = {
     body: {
       email: "",
@@ -19,6 +19,21 @@ it("should return status 400 if email is not allowed to be empty", async () => {
   expect(res.status).toHaveBeenCalledWith(400);
   expect(res.json).toHaveBeenCalledWith({
     status: "error",
-    message: "email is not allowed to be empty",
+    message: "email or password are not allowed to be empty",
+  });
+});
+
+it("should return status 400 if password is empty ", async () => {
+  const req = {
+    body: {
+      email: "faisal@gmail.com",
+      password: "",
+    },
+  };
+  await authController.login(req, res);
+  expect(res.status).toHaveBeenCalledWith(400);
+  expect(res.json).toHaveBeenCalledWith({
+    status: "error",
+    message: "email or password are not allowed to be empty",
   });
 });

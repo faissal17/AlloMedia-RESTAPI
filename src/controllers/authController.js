@@ -36,10 +36,10 @@ class authController {
 
   static login = async (req, res) => {
     const { email, password } = req.body;
-    if (!email) {
+    if (!email || !password) {
       return res.status(400).json({
         status: "error",
-        message: 'email is not allowed to be empty',
+        message: "email or password are not allowed to be empty",
       });
     }
     try {

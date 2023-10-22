@@ -76,3 +76,25 @@ it("should return 400 if password is inccorect", async () => {
     message: "No user found with this email.",
   });
 });
+
+// it("should return 200 if user logged in", async () => {
+//   const req = {
+//     body: {
+//       email: "inar@gmail.com",
+//       password: "aoukacha",
+//     },
+//   };
+//   const user = await User.findOne({
+//     email: req.body.email,
+//     password: req.body.password,
+//   });
+
+//   await bcryptjs.compare(req.body.password, user.password);
+
+//   await authController.login(req, res);
+//   expect(res.status).toHaveBeenCalledWith(200);
+//   expect(res.json).toHaveBeenCalledWith({
+//     status: "succes",
+//     message: "Login successful",
+//   });
+// });

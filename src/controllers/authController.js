@@ -11,9 +11,11 @@ class authController {
         .json({ status: "error", message: "All fields are required" });
     }
     try {
-      const checkUserEmail = await User.findOne({ where: { email } });
+      const checkUserEmail = await User.findOne({ email });
       if (checkUserEmail) {
-        return res.status(400).json({ message: "This email already exists" });
+        return res
+          .status(400)
+          .json({ status: "error", message: "This email already exists" });
       }
       const hashedPassword = await hashPassword(password);
       const user = await User.create({
@@ -57,7 +59,7 @@ class authController {
         res.json({
           message: "hello " + user.name + " Your role is " + user.role,
         });
-        return resstatus(200).json({
+        return res.status(200).json({
           status: "succes",
           message: "Login successful",
         });

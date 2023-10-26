@@ -56,9 +56,14 @@ class authController {
       }
       const passwordMatch = await bcryptjs.compare(password, user.password);
       if (passwordMatch) {
-        res.json({
-          message: "hello " + user.name + " Your role is " + user.role,
-        });
+        switch (user.role.name) {
+          case "manager":
+            return res.redirect("/api/user/manager/me");
+          case "livreur":
+            return res.redirect("/api/user/delivery/me");
+          case "client":
+            return res.redirect("/api/user/client/me");
+        }
         return res.status(200).json({
           status: "succes",
           message: "Login successful",

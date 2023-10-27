@@ -7,7 +7,7 @@ dotenv.config();
 
 class ResetPassworController {
   static resetPassword = async (req, res) => {
-    const token = req.params.token;
+    const token = req.query.token;
     console.log(token);
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     if (!decodedToken) {
@@ -25,7 +25,7 @@ class ResetPassworController {
         { password: hashedPassword }
       );
 
-      return res.json({ success: "Password reset successfully" });
+      return res.status(200).json({ success: "Password reset successfully" });
     } catch (error) {
       console.error(error.message);
       return res.status(400).json({ error: "Invalid or expired token." });

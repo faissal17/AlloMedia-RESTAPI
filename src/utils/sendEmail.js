@@ -8,6 +8,8 @@ const sendEmail = async (email) => {
   const token = jwt.sign({ email }, process.env.SECRET_KEY, {
     expiresIn: 600,
   });
+  const resetPasswordLink = `http://localhost:5173/resetPassword?token=${token}`;
+  // const resetPasswordLink = `http://localhost:5173/api/auth/resetpassword?token=${token}`;
   try {
     const transport = nodemailer.createTransport({
       host: process.env.HOST,
@@ -21,7 +23,7 @@ const sendEmail = async (email) => {
       from: "AlloMedia@gmail.com",
       to: email,
       subject: "Reset Password",
-      html: `<h1>Click this link to reset your password</h1><a href="http://localhost:3000/api/auth/resetpassword/${token}">Reset Password Link</a>`,
+      html: `<h1>Click on this link to reset your password</h1><a href="${resetPasswordLink}">Reset Password Link</a>`,
     });
     console.log("email send successufully");
   } catch (error) {

@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 
 dotenv.config();
 
-const sendEmail = async (email) => {
-  const token = jwt.sign({ email }, process.env.SECRET_KEY, {
+const SendActivateEmail = async (email, name, password) => {
+  const token = jwt.sign({ email, name, password }, process.env.SECRET_KEY, {
     expiresIn: 600,
   });
-  const resetPasswordLink = `http://localhost:5173/resetPassword?token=${token}`;
+  const ActivateEmail = `http://localhost:5173/resetPassword?token=${token}`;
   try {
     const transport = nodemailer.createTransport({
       host: process.env.HOST,
@@ -21,12 +21,12 @@ const sendEmail = async (email) => {
     await transport.sendMail({
       from: "AlloMedia@gmail.com",
       to: email,
-      subject: "Reset Password",
-      html: `<h1>Click on this link to reset your password</h1><a href="${resetPasswordLink}">Reset Password Link</a>`,
+      subject: "Activate Email",
+      html: `<h1>Click On this link to activate email</h1><a href="${ActivateEmail}">Activate Email Link</a>`,
     });
     console.log("email send successufully");
   } catch (error) {
     console.log(error.message);
   }
 };
-module.exports = sendEmail;
+module.exports = SendActivateEmail;

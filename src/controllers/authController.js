@@ -2,6 +2,8 @@ const hashPassword = require("../helpers/hashPassword");
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const ActivateEmail = require("../utils/sendActivateEmail");
+
 class authController {
   static register = async (req, res) => {
     const { name, email, password, role } = req.body;

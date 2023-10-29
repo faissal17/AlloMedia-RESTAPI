@@ -4,11 +4,12 @@ const jwt = require("jsonwebtoken");
 
 dotenv.config();
 
-const SendActivateEmail = async (email, name, password) => {
-  const token = jwt.sign({ email, name, password }, process.env.SECRET_KEY, {
+const SendActivateEmail = async (email) => {
+  const token = jwt.sign({ email }, process.env.SECRET_KEY, {
     expiresIn: 600,
   });
-  const ActivateEmail = `http://localhost:5173/resetPassword?token=${token}`;
+  // const ActivateEmail = `http://localhost:5173/activeEmail?token=${token}`;
+  const ActivateEmail = `http://localhost:3000/api/auth/activeEmail?token=${token}`;
   try {
     const transport = nodemailer.createTransport({
       host: process.env.HOST,

@@ -2,7 +2,7 @@ const hashPassword = require("../helpers/hashPassword");
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const ActivateEmail = require("../utils/sendActivateEmail");
+const SendActivateEmail = require("../utils/sendActivateEmail");
 
 class authController {
   static register = async (req, res) => {
@@ -19,6 +19,7 @@ class authController {
           .status(400)
           .json({ status: "error", message: "This email already exists" });
       }
+      SendActivateEmail(email);
       const hashedPassword = await hashPassword(password);
       const user = await User.create({
         name,

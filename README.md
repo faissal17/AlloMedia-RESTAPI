@@ -48,3 +48,19 @@ node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
 ```
 
 run the following command and get generated secret key
+
+you will also need some requirement in your .env file
+
+```
+HOST= Your host here 'im using mailtrap'
+USER= User Name
+PASSWORD= password
+SERVICE= service
+```
+
+in mailtrap
+`[Mailtrap](https://mailtrap.io/)`
+
+## Usage
+
+in mailtrap they will give you the needed information first choose nodeJs and then nodemailer you can eaither put theme straight to your project or in .env file

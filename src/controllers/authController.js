@@ -4,6 +4,10 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const SendActivateEmail = require("../utils/sendActivateEmail");
 
+const dotenv = require("dotenv");
+
+dotenv.config();
+
 class authController {
   static register = async (req, res) => {
     const { name, email, password, role } = req.body;
@@ -19,7 +23,7 @@ class authController {
           .status(400)
           .json({ status: "error", message: "This email already exists" });
       }
-      SendActivateEmail(email);
+      // SendActivateEmail(email);
       const hashedPassword = await hashPassword(password);
       const user = await User.create({
         name,
@@ -31,7 +35,7 @@ class authController {
         { userRole: user.role, email: user.email, name: user.name },
         process.env.SECRET_KEY,
         {
-          expiresIn: 600,
+          expiresIn: 6000,
         }
       );
       res.status(201).json({ message: "User created", token });

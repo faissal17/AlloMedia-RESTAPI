@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/AlloMedia").then(() => {
+const url =
+  "mongodb+srv://faissalaoukacha:johancruyff14@cluster0.byif7c3.mongodb.net/AlloMedia?retryWrites=true&w=majority";
+mongoose.connect(url).then(() => {
   console.log("connected");
 });
 

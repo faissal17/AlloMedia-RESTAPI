@@ -7,11 +7,14 @@ const forgetPassRouter = require("./src/routes/forgetPassword");
 const resetPassword = require("./src/routes/ResetPassword");
 const clientRoutes = require("./src/routes/client/ClientRoute");
 const ActiveEmail = require("./src/routes/ActiveEmail");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
+
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -27,10 +30,11 @@ app.use("/api/auth", forgetPassRouter);
 app.use("/api/auth", resetPassword);
 app.use("/api/auth", ActiveEmail);
 
-app.use("/api/user/client", clientRoutes);
+app.use("/user/me", clientRoutes);
 
 app.get("/", (req, res) => {
   res.send("hey");
 });
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`app listening on port ${port}`));

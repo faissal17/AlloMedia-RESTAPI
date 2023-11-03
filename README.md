@@ -65,7 +65,7 @@ in mailtrap
 
 in mailtrap they will give you the needed information first choose nodeJs and then nodemailer you can eaither put theme straight to your project or in .env file
 
-# Docker configration
+# Docker
 
 ## configration
 To run this application with docker, you should have installed 

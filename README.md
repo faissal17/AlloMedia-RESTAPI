@@ -64,3 +64,22 @@ in mailtrap
 ## Usage
 
 in mailtrap they will give you the needed information first choose nodeJs and then nodemailer you can eaither put theme straight to your project or in .env file
+
+# Docker configration
+
+## configration
+To run this application with docker, you should have installed 
+`docker`. 'Docker is an open platform for developing, shipping, and running applications.'
+1. Build a Docker image:
+ after creating your first docker image run the following command to create it 
+ ```
+ docker build -t app_name
+ ```
+ 2. Run the Docker container:
+you can go straight to your docker app and run the image to container
+ 3. you should know the main porpuse for docker in this app. instead of running each server at time we created a file to run them the same time, mainly used for a team work it doesn't matter what dependcies you have or what version all what you node is clone the images and run the following command 
+```
+docker-compose down
+```
+the command should run after created "docker-compose.yaml"
+and connect the front-end and backend

@@ -8,6 +8,7 @@ const resetPassword = require("./src/routes/ResetPassword");
 const clientRoutes = require("./src/routes/client/ClientRoute");
 const ActiveEmail = require("./src/routes/ActiveEmail");
 const cookieParser = require("cookie-parser");
+const livreurRouter = require("./src/routes/livreur/livreurRoute");
 const cors = require("cors");
 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use("/api/auth", resetPassword);
 app.use("/api/auth", ActiveEmail);
 
 app.use("/user/me", clientRoutes);
+app.use("/user/me", livreurRouter);
 
 app.get("/", (req, res) => {
   res.send("hey");
